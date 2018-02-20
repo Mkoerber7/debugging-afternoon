@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './StoreFront.css';
 import { connect } from 'react-redux';
-import { addToShoppingCart, getAllProducts } from '../../redux/reducer';
+import { addToShoppingCart } from '../../redux/reducer';
+import { getAllProducts } from '../../redux/reducer';
 
 class StoreFront extends Component {
 
@@ -10,8 +11,10 @@ class StoreFront extends Component {
     }
 
     render() {
+        let productDisplay = [];
         console.log(this.props.products);
-        let productDisplay = this.props.products.map((element, index) => {
+        if(this.props.products) {
+        productDisplay = this.props.products.map((element, index) => {
             return (
                 <div className="product-container" key={index}>
                     <h2>{element.title}</h2>
@@ -22,6 +25,7 @@ class StoreFront extends Component {
                 </div>
             )
         })
+    }
         return (
             <div className="storefront-container">
                 {productDisplay}
@@ -33,7 +37,7 @@ class StoreFront extends Component {
 function mapStateToProps(state) {
     return {
         products: state.products,
-        loading: state.loading,
+        loading: state.loading
     }
 }
 
